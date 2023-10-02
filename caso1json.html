@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+
+</style>
+<body>
+    <div class="container" id="container"></div>
+    <script>
+        const container = document.getElementById('container');
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', 'https://jsonplaceholder.typicode.com/users');
+        xhr.addEventListener('load', (data) => {
+            const dataJSON = JSON.parse(data.target.response);
+            const fragment = document.createDocumentFragment();
+            for (const userInfo of dataJSON) {
+                const listItem = document.createElement('LI');
+                listItem.textContent = `${userInfo.id} - ${userInfo.name}`;
+                fragment.appendChild(listItem);
+            }
+            container.appendChild(fragment);
+        });
+        xhr.send();
+    </script>
+</body>
+</html>
